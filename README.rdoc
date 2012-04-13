@@ -7,7 +7,7 @@ Created to fill a need in supplying two arrays (a,b) of varying size and represe
 === Example A
 Simple letters to numbers.
   data =  'hello'.chars.map(&:to_sym)   #=> [:h, :e, :l, :l, :o]
-  current = abcdefghijklmnopqrstuvwxyz.chars.map(&:to_sym)   #=> [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z]
+  current = 'abcdefghijklmnopqrstuvwxyz'.chars.map(&:to_sym)   #=> [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z]
   target = (0..9).to_a   #=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
   rencdec = Rencdec.new(current_data: data, current_encoding: current, target_encoding: target)
   rencdec.encode  #=> [3, 2, 7, 6, 8, 7, 2]
