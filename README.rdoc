@@ -1,0 +1,26 @@
+= Rencdec
+Simple ruby wrapper for encoding and decoding based on radix.
+
+== Purpose
+Created to fill a need in supplying two arrays (a,b) of varying size and representing a third array (c) that uses items from the first array (a) and reversably encodes it into items from the second array (b) and returns the fourth array (d). Decoding using the same arrays should turn fourth array (d) into the third array (c).
+
+=== Example A
+Simple letters to numbers.
+  rencdec = Rencdec.new(current_data: [:h,:e,:l,:l,:o], current_encoding: [:a,:b,:c,:d,:e,:f,:g,:h,:i,:j,:k,:l,:m,:n,:o,:p,:q,:r,:s,:t,:u,:v,:w,:x,:y,:z], target_encoding: (0..9).to_a)
+  rencdec.encode
+  rencdec.decode
+  rencdec.verify
+=== Example B
+Arbitrary letters to other letters.
+  Rencdec.new(current_data: [:q,:w,:e,:r,:t,:y], current_encoding: [:e,:q,:r,:t,:w,:y], target_encoding: [:a,:b,:c,:d])
+  rencdec.encode
+  rencdec.decode
+  rencdec.verify
+=== Example C
+Musical notes to colors.
+  Rencdec.new(current_data: [:c,:d,:e,:f,:g,:a,:b,:c], current_encoding: [:c,:cs,:d,:ds,:e,:f,:fs,:g,:gs,:a,:as,:b], target_encoding: [:red,:violet,:blue,:green,:yellow,:orange])
+  rencdec.encode
+  rencdec.decode
+  rencdec.verify
+
+= /Rencdec
