@@ -11,12 +11,12 @@ class Rencdec
 	def encode
 		tmp_current = current_data.map{|c| current_radix.values[c.to_s]}
 		tmp_target = Radix.convert_base(tmp_current, current_radix.base, target_radix.base)
-		@target_data ||= tmp_target.map{|t| target_radix.values.invert[t]}
+		@target_data ||= tmp_target.map{|t| tmp = target_radix.values.invert[t]; tmp.to_i.to_s.length == tmp.length ? tmp.to_i : tmp.to_sym }
 	end
 	def decode
 		tmp_target = target_data.map{|t| target_radix.values[t.to_s]}
 		tmp_current = Radix.convert_base(tmp_target, target_radix.base, current_radix.base)
-		@current_data ||= tmp_current.map{|t| current_radix.values.invert[t]}
+		@current_data ||= tmp_current.map{|t| tmp = current_radix.values.invert[t]; tmp.to_i.to_s.length == tmp.length ? tmp.to_i : tmp.to_sym }
 	end
 	def verify
 		encode == target_data && decode == current_data
