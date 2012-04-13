@@ -1,8 +1,19 @@
 ## Purpose
-> Created to fill a need in supplying two arrays (a,b) of varying size and representing a third array (c) that uses items from the first array (a) and reversably encodes it into items from the second array (b) and returns the fourth array (d). Decoding using the same arrays should turn fourth array (d) into the third array (c). Examples include letters to numbers, musical notes to colors, or any other grouping of objects describable as an array words.
+Created to fill a need in supplying two arrays (a,b) of varying size and representing a third array (c) that uses items from the first array (a) and reversably encodes it into items from the second array (b) and returns the fourth array (d). Decoding using the same arrays should turn fourth array (d) into the third array (c). Examples include letters to numbers, musical notes to colors, or any other grouping of objects describable as an array of words.
 
+## Installation
 [Install rencdec via rubygems and/or bundler](https://rubygems.org/gems/rencdec)
+### Rubygems
 
+```
+gem install rencdec
+```
+### Bundler
+
+```
+gem "rencdec", "~> 0.0.1"
+```
+## Examples
 ### Example A
 Simple letters to numbers.
 
