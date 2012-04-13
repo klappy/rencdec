@@ -6,19 +6,25 @@ Created to fill a need in supplying two arrays (a,b) of varying size and represe
 
 === Example A
 Simple letters to numbers.
-  rencdec = Rencdec.new(current_data: [:h,:e,:l,:l,:o], current_encoding: [:a,:b,:c,:d,:e,:f,:g,:h,:i,:j,:k,:l,:m,:n,:o,:p,:q,:r,:s,:t,:u,:v,:w,:x,:y,:z], target_encoding: (0..9).to_a)
+  data =  'hello'.chars.map(&:to_sym)   #=> [:h, :e, :l, :l, :o]
+  current = abcdefghijklmnopqrstuvwxyz.chars.map(&:to_sym)   #=> [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z]
+  target = (0..9).to_a   #=> [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+  rencdec = Rencdec.new(current_data: data, current_encoding: current, target_encoding: target)
   rencdec.encode  #=> [3, 2, 7, 6, 8, 7, 2]
   rencdec.decode  #=> [:h, :e, :l, :l, :o]
   rencdec.verify  #=> true
 === Example B
 Arbitrary letters to other letters.
-  Rencdec.new(current_data: [:q,:w,:e,:r,:t,:y], current_encoding: [:e,:q,:r,:t,:w,:y], target_encoding: [:a,:b,:c,:d])
+  rencdec = Rencdec.new(current_data: [:q,:w,:e,:r,:t,:y], current_encoding: [:e,:q,:r,:t,:w,:y], target_encoding: [:a,:b,:c,:d])
   rencdec.encode  #=> [:d, :a, :c, :d, :d, :d, :d]
   rencdec.decode  #=> [:q, :w, :e, :r, :t, :y]
   rencdec.verify  #=> true
 === Example C
 Musical notes to colors.
-  Rencdec.new(current_data: [:c,:d,:e,:f,:g,:a,:b,:c], current_encoding: [:c,:cs,:d,:ds,:e,:f,:fs,:g,:gs,:a,:as,:b], target_encoding: [:red,:violet,:blue,:green,:yellow,:orange])
+  data = [:c,:d,:e,:f,:g,:a,:b,:c]
+  current = [:c,:cs,:d,:ds,:e,:f,:fs,:g,:gs,:a,:as,:b]
+  target = %w{red violet blue green yellow orange}.map(&:to_sym)  #=> [:red, :violet, :blue, :green, :yellow, :orange]
+  rencdec = Rencdec.new(current_data: data, current_encoding: current, target_encoding: target)
   rencdec.encode  #=> [:yellow, :violet, :violet, :orange, :red, :blue, :green, :yellow, :red]
   rencdec.decode  #=> [:c, :d, :e, :f, :g, :a, :b, :c]
   rencdec.verify  #=> true
