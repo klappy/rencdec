@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Rencdec by klappy</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Rencdec</h1>
+<p>Ruby encoder/decoder for arrays of arbitrary elements and for those with dislexia, not to be confused with redneck.</p>
+        <p class="view"><a href="https://github.com/klappy/rencdec">View the Project on GitHub <small>klappy/rencdec</small></a></p>
+        <ul>
+          <li><a href="https://github.com/klappy/rencdec/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/klappy/rencdec/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/klappy/rencdec">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h2>Purpose</h2>
+
+<p>Created to fill a need in supplying two arrays (a,b) of varying size and representing a third array (c) that uses items from the first array (a) and reversably encodes it into items from the second array (b) and returns the fourth array (d). Decoding using the same arrays should turn fourth array (d) into the third array (c). Examples include letters to numbers, musical notes to colors, or any other grouping of objects describable as an array of words.</p>
+
+<h2>Installation</h2>
+
+<p><a href="https://rubygems.org/gems/rencdec">Install rencdec via rubygems and/or bundler</a></p>
+
+<h3>Rubygems</h3>
+
+<pre><code>gem install rencdec
+</code></pre>
+
+<h3>Bundler</h3>
+
+<pre><code>gem "rencdec", "~&gt; 0.0.1"
+</code></pre>
+
+<h2>Examples</h2>
+
+<h3>Example A</h3>
+
+<p>Simple letters to numbers.</p>
+
+<div class="highlight">
+<pre><span class="n">data</span> <span class="o">=</span>  <span class="s1">'hello'</span><span class="o">.</span><span class="n">chars</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>   <span class="c1">#=&gt; [:h, :e, :l, :l, :o]</span>
+<span class="n">current</span> <span class="o">=</span> <span class="s1">'abcdefghijklmnopqrstuvwxyz'</span><span class="o">.</span><span class="n">chars</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>   <span class="c1">#=&gt; [:a, :b, :c, :d, :e, :f, :g, :h, :i, :j, :k, :l, :m, :n, :o, :p, :q, :r, :s, :t, :u, :v, :w, :x, :y, :z]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">.</span><span class="n">.</span><span class="mi">9</span><span class="p">)</span><span class="o">.</span><span class="n">to_a</span>   <span class="c1">#=&gt; [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</span>
+<span class="n">rencdec</span> <span class="o">=</span> <span class="no">Rencdec</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">current_data</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="n">current_encoding</span><span class="p">:</span> <span class="n">current</span><span class="p">,</span> <span class="n">target_encoding</span><span class="p">:</span> <span class="n">target</span><span class="p">)</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">encode</span>  <span class="c1">#=&gt; [3, 2, 7, 6, 8, 7, 2]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">decode</span>  <span class="c1">#=&gt; [:h, :e, :l, :l, :o]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">verify</span>  <span class="c1">#=&gt; true</span>
+</pre>
+</div>
+
+
+<h3>Example B</h3>
+
+<p>Arbitrary letters to other letters.</p>
+
+<div class="highlight">
+<pre><span class="n">rencdec</span> <span class="o">=</span> <span class="no">Rencdec</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">current_data</span><span class="p">:</span> <span class="o">[</span><span class="ss">:q</span><span class="p">,</span><span class="ss">:w</span><span class="p">,</span><span class="ss">:e</span><span class="p">,</span><span class="ss">:r</span><span class="p">,</span><span class="ss">:t</span><span class="p">,</span><span class="ss">:y</span><span class="o">]</span><span class="p">,</span> <span class="n">current_encoding</span><span class="p">:</span> <span class="o">[</span><span class="ss">:e</span><span class="p">,</span><span class="ss">:q</span><span class="p">,</span><span class="ss">:r</span><span class="p">,</span><span class="ss">:t</span><span class="p">,</span><span class="ss">:w</span><span class="p">,</span><span class="ss">:y</span><span class="o">]</span><span class="p">,</span> <span class="n">target_encoding</span><span class="p">:</span> <span class="o">[</span><span class="ss">:a</span><span class="p">,</span><span class="ss">:b</span><span class="p">,</span><span class="ss">:c</span><span class="p">,</span><span class="ss">:d</span><span class="o">]</span><span class="p">)</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">encode</span>  <span class="c1">#=&gt; [:d, :a, :c, :d, :d, :d, :d]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">decode</span>  <span class="c1">#=&gt; [:q, :w, :e, :r, :t, :y]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">verify</span>  <span class="c1">#=&gt; true</span>
+</pre>
+</div>
+
+
+<h3>Example C</h3>
+
+<p>Musical notes to colors.</p>
+
+<div class="highlight">
+<pre><span class="n">data</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:c</span><span class="p">,</span><span class="ss">:d</span><span class="p">,</span><span class="ss">:e</span><span class="p">,</span><span class="ss">:f</span><span class="p">,</span><span class="ss">:g</span><span class="p">,</span><span class="ss">:a</span><span class="p">,</span><span class="ss">:b</span><span class="p">,</span><span class="ss">:c</span><span class="o">]</span>
+<span class="n">current</span> <span class="o">=</span> <span class="o">[</span><span class="ss">:c</span><span class="p">,</span><span class="ss">:cs</span><span class="p">,</span><span class="ss">:d</span><span class="p">,</span><span class="ss">:ds</span><span class="p">,</span><span class="ss">:e</span><span class="p">,</span><span class="ss">:f</span><span class="p">,</span><span class="ss">:fs</span><span class="p">,</span><span class="ss">:g</span><span class="p">,</span><span class="ss">:gs</span><span class="p">,</span><span class="ss">:a</span><span class="p">,</span><span class="ss">:as</span><span class="p">,</span><span class="ss">:b</span><span class="o">]</span>
+<span class="n">target</span> <span class="o">=</span> <span class="sx">%w{red violet blue green yellow orange}</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_sym</span><span class="p">)</span>  <span class="c1">#=&gt; [:red, :violet, :blue, :green, :yellow, :orange]</span>
+<span class="n">rencdec</span> <span class="o">=</span> <span class="no">Rencdec</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">current_data</span><span class="p">:</span> <span class="n">data</span><span class="p">,</span> <span class="n">current_encoding</span><span class="p">:</span> <span class="n">current</span><span class="p">,</span> <span class="n">target_encoding</span><span class="p">:</span> <span class="n">target</span><span class="p">)</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">encode</span>  <span class="c1">#=&gt; [:yellow, :violet, :violet, :orange, :red, :blue, :green, :yellow, :red]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">decode</span>  <span class="c1">#=&gt; [:c, :d, :e, :f, :g, :a, :b, :c]</span>
+<span class="n">rencdec</span><span class="o">.</span><span class="n">verify</span>  <span class="c1">#=&gt; true</span>
+</pre>
+</div>
+
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/klappy">klappy</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-30885917-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
